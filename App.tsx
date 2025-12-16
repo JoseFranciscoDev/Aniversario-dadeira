@@ -142,7 +142,7 @@ const App: React.FC = () => {
 
         {/* LOADING */}
         {state === 'generating' && (
-          <Loader text="Invocando a Turbo Granny e esculpindo o destino..." />
+          <Loader text="A Velha Turbo tá esculpindo teu destino..." />
         )}
 
         {/* ERROR */}
