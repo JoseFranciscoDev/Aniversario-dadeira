@@ -1,7 +1,12 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { BirthdayContent } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+if (!apiKey) {
+  throw new Error("VITE_GEMINI_API_KEY environment variable is not set");
+}
+
+const ai = new GoogleGenAI({ apiKey });
 
 // Generate the personalized birthday message
 export const generateBirthdayMessage = async (): Promise<BirthdayContent> => {
@@ -25,18 +30,29 @@ export const generateBirthdayMessage = async (): Promise<BirthdayContent> => {
         responseSchema: {
           type: Type.OBJECT,
           properties: {
-            title: { type: Type.STRING, description: "Um título estilo anime/RPG (ex: A Invocadora da Luz Eterna)" },
-            message: { type: Type.STRING, description: "A mensagem principal misturando carinho e referências de Dandadan." },
-            poem: { type: Type.STRING, description: "Um haiku ou poema curto sobre espíritos e mármore." }
+            title: {
+              type: Type.STRING,
+              description:
+                "Um título estilo anime/RPG (ex: A Invocadora da Luz Eterna)",
+            },
+            message: {
+              type: Type.STRING,
+              description:
+                "A mensagem principal misturando carinho e referências de Dandadan.",
+            },
+            poem: {
+              type: Type.STRING,
+              description: "Um haiku ou poema curto sobre espíritos e mármore.",
+            },
           },
-          required: ["title", "message", "poem"]
-        }
-      }
+          required: ["title", "message", "poem"],
+        },
+      },
     });
 
     const text = response.text;
     if (!text) throw new Error("No text returned from Gemini");
-    
+
     return JSON.parse(text) as BirthdayContent;
   } catch (error) {
     console.error("Error generating text:", error);
@@ -59,11 +75,11 @@ export const generateDandadanGreekArt = async (): Promise<string> => {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash-image",
       contents: {
-        parts: [{ text: prompt }]
+        parts: [{ text: prompt }],
       },
       config: {
         // Default configs
-      }
+      },
     });
 
     for (const part of response.candidates?.[0]?.content?.parts || []) {
@@ -71,7 +87,7 @@ export const generateDandadanGreekArt = async (): Promise<string> => {
         return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
       }
     }
-    
+
     throw new Error("No image data found in response");
   } catch (error) {
     console.error("Error generating image:", error);
