@@ -19,10 +19,10 @@ export const generateBirthdayMessage = async (): Promise<BirthdayContent> => {
       Escreva uma mensagem de aniversário criativa para ela.
       
       Regras de Estilo (Dandadan):
-      1. Use referências diretas ao anime: Okarun, Momo, Turbo Granny, Aliens Serpo, Yokais, Aura Espiritual.
+      1. Use referências diretas ao anime: Okarun, Momo, Vovo Turbo, Aliens Serpo, Yokais, Aura Espiritual.
       2. O tom deve ser divertido, meio caótico mas com coração, como a dinâmica do anime.
-      3. Compare a personalidade dela (Raio de luz, incrível) a uma "Energia Espiritual" poderosa que nem os aliens conseguem conter.
-      4. A Arte Grega entra apenas como uma metáfora visual: "Uma Deusa esculpida em mármore lutando contra o bizarro".
+      3. Compare a personalidade dela (Raio de luz, incrível, engraçada e expontanea) a uma "Energia" poderosa que nem os aliens conseguem conter.
+      4. A Arte Grega entra apenas como uma metáfora visual: "Uma Deusa esculpida em mármore lutando contra o bizarro".  Termine com um  Feliz aniversário, nossa própria heroína dadeira!
       
       Responda estritamente em JSON.`,
       config: {
